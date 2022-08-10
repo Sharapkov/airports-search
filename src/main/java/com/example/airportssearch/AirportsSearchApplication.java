@@ -15,8 +15,7 @@ import java.util.*;
 // к сожалению, у меня нет подписки Яндекс.плюс, а лимит скачиваний файла исчерпан, поэтому более нет возможности протестировать приложение, теперь я всегда ловлю исключение FileNotFound
 // но все равно, на последнем тесте сложность поиска была О(n), а поиск идет по всем строкам  за ~250мс. Это не удовлетворительный результат, конечно, но хотелось бы попробовать использовать
 // разные алгоритмы поиска, тема очень интересная, но к сажлению, в слепую без тестов я лишь испорчу код, поэтому оставляю все так.
-// выход из приложения по команде !quit я бы сделал за 10-20 минут, будь возможность тестировать код.
-// параметры запуска установить тоже дело на 10 минут, но без возможности теста не буду рисковать порчей кода.
+
 
 
 @SpringBootApplication
@@ -24,9 +23,16 @@ public class AirportsSearchApplication {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(AirportsSearchApplication.class, args);
+
 		int a = Integer.parseInt(args[0]);
 		getLinked();
-		goFind(a);
+		Scanner scanner = new Scanner(System.in);
+		String findTo = scanner.next();
+		while(!(findTo.equals("!quit"))) {
+			goFind(a, findTo);
+			findTo = scanner.next();
+		}
+		System.exit(0);
 	}
 
 	public static String getLinked() throws IOException { // get запрос яндексу, возвращает ссылку на csv file
@@ -53,41 +59,41 @@ public class AirportsSearchApplication {
 			e.printStackTrace();
 		}
 
-		return  result.toString();
+		return result.toString();
 	}
 
 
-	public static void goFind(int a) throws IOException {
-
+	public static void goFind(int a, String findTo) throws IOException {
 
 		String newUrl = getLinked();
 		URL ur = new URL(newUrl);
-		URLConnection connect =  ur.openConnection();
+		URLConnection connect = ur.openConnection();
+
 		String ln;
 		String csvSplit = ",";
-
-		Scanner scanner = new Scanner(System.in);
-		String findTo = scanner.next();
 		String pattern = ("^." + findTo + ".*");
 		String s[];
 		int count = 0;
 
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
 
-		try(BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()))){
-
-			Long time = System.currentTimeMillis(); // начало отсчета времени на поиск
-			while((ln = br.readLine()) != null) {
-				s = ln.split(csvSplit);
-					if(s[a-1].matches(pattern)){
-						System.out.println(s[a-1] + "[" + ln + "]");
+				long time = System.currentTimeMillis(); // начало отсчета времени на поиск
+				while ((ln = br.readLine()) != null) {
+					s = ln.split(csvSplit);
+					if (s[a - 1].matches(pattern)) {
+						System.out.println(s[a - 1] + "[" + ln + "]");
 						count++;
 					}
-			}
-			System.out.println("\n" + "milliseconds per operation:" + (System.currentTimeMillis() - time) + "\n" + "matches found:" + count);
+				}
+				System.out.println("\n" + "milliseconds per operation:" + (System.currentTimeMillis() - time) + "\n" + "matches found:" + count + "\n" + "Please enter a world for find or type !quit to exit:");
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
+
 	}
 }
+
 
