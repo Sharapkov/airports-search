@@ -78,7 +78,7 @@ public class AirportsSearchApplication {
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
 
 				long time = System.currentTimeMillis(); // начало отсчета времени на поиск
-				while ((ln = br.readLine()) != null) {
+				while ((ln = br.readLine()) != null ) {
 					s = ln.split(csvSplit);
 					if (s[a - 1].matches(pattern)) {
 						System.out.println(s[a - 1] + "[" + ln + "]");
