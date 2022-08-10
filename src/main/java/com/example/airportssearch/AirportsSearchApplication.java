@@ -41,12 +41,10 @@ public class AirportsSearchApplication {
 		URLConnection connection = url.openConnection();
 		StringBuilder result = new StringBuilder();
 		String line;
+		InputStreamReader input = new InputStreamReader(connection.getInputStream());
+		BufferedReader buffer = new BufferedReader(input);
 
 		try {
-
-			InputStreamReader input = new InputStreamReader(connection.getInputStream());
-			BufferedReader buffer = new BufferedReader(input);
-
 			while ((line = buffer.readLine()) != null) {
 				result.append(line);
 			}
@@ -74,16 +72,19 @@ public class AirportsSearchApplication {
 		String pattern = ("^." + findTo + ".*");
 		String s[];
 		int count = 0;
-
+		TreeMap<String, String[]> treeMap = new TreeMap<>();
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
 
 				long time = System.currentTimeMillis(); // начало отсчета времени на поиск
-				while ((ln = br.readLine()) != null ) {
+				while ((ln = br.readLine()) != null) {
 					s = ln.split(csvSplit);
 					if (s[a - 1].matches(pattern)) {
-						System.out.println(s[a - 1] + "[" + ln + "]");
+						treeMap.put(s[a-1],s);
 						count++;
 					}
+				}
+				for(Map.Entry<String, String[]> entry : treeMap.entrySet()){
+					System.out.println(entry.getKey() + Arrays.toString(entry.getValue()));
 				}
 				System.out.println("\n" + "milliseconds per operation:" + (System.currentTimeMillis() - time) + "\n" + "matches found:" + count + "\n" + "Please enter a world for find or type !quit to exit:");
 
