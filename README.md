@@ -46,6 +46,6 @@ java -jar target/airports-search-1.0-SNAPSHOT.jar
     Долгота
     
 # Авторы
-Автор кода: github.com/Sharapkov
+Developer: github.com/Sharapkov
 
-Автор библиотеки KDTtree: github.com/Harium
+Library KDTtree: github.com/Harium
