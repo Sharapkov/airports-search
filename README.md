@@ -29,7 +29,13 @@ mvn clean package
 java -jar target/airports-search-1.0-SNAPSHOT.jar
 
 # Зависимости  Maven
-Файл pom.xml должен содержать репозиторий и зависимости для использования библиотеки готовой реализации kdtree, а также аннотаций lombok.
+Файл pom.xml должен содержать зависимость для использования библиотеки готовой реализации kdtree:
+
+        <dependency>
+            <groupId>com.harium.storage</groupId>
+            <artifactId>kdtree</artifactId>
+            <version>1.0.0</version>
+        </dependency>
   
 # Формат данных
 Данные об аэропортах хранятся в файле src/main/resources/airports.dat,
