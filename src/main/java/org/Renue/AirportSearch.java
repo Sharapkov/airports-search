@@ -25,10 +25,10 @@ public class AirportSearch {
         // координаты пользователя
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите широту: ");
-        double latitude = scanner.nextDouble();
+        double lat = scanner.nextDouble();
         System.out.print("Введите долготу: ");
-        double longitude = scanner.nextDouble();
-        double[] coordinates = new double[] {latitude, longitude};
+        double lon = scanner.nextDouble();
+        double[] coordinates = new double[] {lat, lon};
 
         long start = System.currentTimeMillis();
         //поиск 5 ближайших аэропортов к указанным координатам
@@ -55,12 +55,12 @@ public class AirportSearch {
                 String[] fields = line.split(delimiter);
                 // сохраняем в лист имя и координаты x, y;
                 String name = fields[1];
-                double longitude = Double.parseDouble(fields[7]);
                 double latitude = Double.parseDouble(fields[6]);
+                double longitude = Double.parseDouble(fields[7]);
                 airports.add(new Airport(name, latitude, longitude ));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Ошибка чтения файла airports.dat: " + e.getMessage());
         }
         return airports;
     }

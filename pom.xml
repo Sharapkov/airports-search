@@ -18,7 +18,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.renue.AirportSearch</mainClass>
+                            <mainClass>org.Renue.AirportSearch</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -26,19 +26,13 @@
         </plugins>
     </build>
 
-
-    <repositories>
-        <repository>
-            <id>harium-mvn-repo</id>
-            <url>https://raw.github.com/harium/kdtree/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
+        <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
         <dependency>
             <groupId>com.harium.storage</groupId>
             <artifactId>kdtree</artifactId>
