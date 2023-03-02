@@ -225,7 +225,7 @@ public class KDTree<T> implements Serializable {
      * @throws KeySizeException if key.length mismatches K
      */
     public List<T> nearestEuclidean(double[] key, double dist) {
-        return nearestDistance(key, dist, new EuclideanDistance());
+        return nearestDistance(key, dist, new EarthDistance());
     }
 
 

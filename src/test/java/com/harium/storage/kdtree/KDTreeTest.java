@@ -63,7 +63,7 @@ public class KDTreeTest {
 
         double[] T = {20, 10};
 
-        float radius = 18;
+        double radius = 18;
 
         try {
             Assert.assertEquals("C", tree.nearestEuclidean(T, radius).get(0));
