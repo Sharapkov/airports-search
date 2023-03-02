@@ -31,12 +31,16 @@ class EuclideanDistance extends DistanceMetric {
 
     protected static double sqrdist(double[] a, double[] b) {
         double dist = 0;
-
-        for (int i = 0; i < a.length; ++i) {
-            double diff = (a[i] - b[i]);
-            dist += diff * diff;
+        for (int i = 0; i < a.length; i++) {
+            double x = a[i];
+            double y = b[i];
+            if (i == 0 || i == 1) {
+                x = Math.toRadians(x);
+                y = Math.toRadians(y);
+            }
+            double delta = y - x;
+            dist += Math.pow(delta, 2);
         }
-
         return dist;
     }
 }

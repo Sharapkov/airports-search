@@ -10,4 +10,5 @@ class Airport {
     String name;
     double latitude;
     double longitude;
+
 }
